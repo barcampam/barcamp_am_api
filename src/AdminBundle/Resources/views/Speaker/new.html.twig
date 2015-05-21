@@ -1,0 +1,15 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+{% block body -%}
+    <h1>Speaker creation</h1>
+
+    {{ form(form) }}
+
+    <hr />
+    <ul class="record_actions list-group col-sm-6">
+        <li class="list-group-item"><a href="{{ path('admin_speaker') }}" class="btn btn-default">Back to the list</a></li>
+    </ul>
+
+{% endblock %}

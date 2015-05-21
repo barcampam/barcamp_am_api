@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Interface">
+    <meta name="author" content="Mikayel Ghazaryan">
+
+    <title>Admin interface</title>
+
+    <link rel="icon" href="/favicon.ico"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite' '@AdminBundle/Resources/public/css/*.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+<body>
+
+{% block navbar %}
+    <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+        {% if app.user.username is defined %}
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('admin_home') }}">Barcamp</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right gray_bg">
+                        <li><a href="{{ path('admin_speaker') }}">Speakers</a></li>
+                        <li><a href="{{ path('admin_schedule') }}">Schedules</a></li>
+                        {% if app.user.username is defined %}
+                            <li><a href="{{ path('_auth_logout') }}" class="label signup_btn">Log out
+                                    ({{ app.user.username }})</a></li>
+                        {% else %}
+                            <li><a href="{{ path('_auth_login') }}" class="label signup_btn">Log In</a></li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        {% endif %}
+    </nav>
+
+{% endblock %}
+
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    <div class="col-sm-8 col-md-9">
+        <br/>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Warning!</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Great!</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </div>
+    {% block body %}
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <br/>
+            <br/>
+            <br/>
+        </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+{% endblock %}
+
+<!-- JavaScript -->
+{% block javascripts %}
+
+    {% javascripts
+    '@AdminBundle/Resources/public/js/*.js'
+    '@MopaBootstrapBundle/Resources/public/js/*.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    <script type="text/javascript" src="//cdn.ckeditor.com/4.4.3/full/ckeditor.js"></script>
+    <script type="text/javascript" src="//cdn.ckeditor.com/4.4.3/full/adapters/jquery.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('.collectionItem > .btn-danger').on('click', function (e) {
+                $(this).parent().remove();
+            });
+
+            if ($('.datepicker').length) {
+                $('.datepicker').datetimepicker({
+                    pickDate: true,                 //en/disables the date picker
+                    pickTime: false,
+                    showToday: true,                 //shows the today indicator
+                    format: 'yyyy-mm-dd hh:ii:ss'
+                });
+            }
+
+            $('body').on('click.collection.data-api', '[data-collection-add-btn]', function (e) {
+                var $btn = $(e.target);
+
+                if (!$btn.hasClass('btn')) {
+                    $btn = $btn.closest('.btn');
+                }
+                $btn.collection('add');
+                e.preventDefault();
+            });
+
+            $('body').on('click.collection.data-api', '[data-collection-remove-btn]', function (e) {
+                var $btn = $(e.target);
+
+                if (!$btn.hasClass('btn')) {
+                    $btn = $btn.closest('.btn');
+                }
+                $btn.collection('remove');
+                e.preventDefault();
+            });
+        });
+    </script>
+
+{% endblock %}
+
+</body>
+</html>

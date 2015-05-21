@@ -1,0 +1,52 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Schedule</h1>
+
+    <table class="records_list table table-condensed table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Timefrom</th>
+                <td>{{ entity.timeFrom|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Timeto</th>
+                <td>{{ entity.timeTo|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Bgimageurl</th>
+                <td>{{ entity.bgImageUrl }}</td>
+            </tr>
+            <tr>
+                <th>Room</th>
+                <td>{{ entity.room }}</td>
+            </tr>
+            <tr>
+                <th>Speaker</th>
+                <td>{{ entity.speaker }}</td>
+            </tr>
+            <tr>
+                <th>Topic</th>
+                <td>{{ entity.topic }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_schedule') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_schedule_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

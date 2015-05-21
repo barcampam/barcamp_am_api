@@ -1,0 +1,61 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Schedule list</h1>
+    <a href="{{ path('admin_schedule_new') }}" class="btn btn-success"> Create a new entry </a>
+    <br />
+    <hr />
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        {% for i, r in rooms %}
+        <li {% if loop.index == 1 %}class="active"{% endif %}><a href="#r{{ i }}" data-toggle="tab">{{ r }}</a></li>
+        {% endfor %}
+    </ul>
+
+<div class="tab-content">
+    {% for i, r in rooms %}
+        
+            <div class="tab-pane {% if loop.index == 1 %}active{% endif %}" id="r{{ i }}">
+
+                <table class="records_list table table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Bg Image Url</th>
+                            <th>Room</th>
+                            <th>Speaker</th>
+                            <th>Topic</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        {% if entity.room == i %}
+                        <tr>
+                            <td><a href="{{ path('admin_schedule_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td>{% if entity.timeFrom %}{{ entity.timeFrom|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if entity.timeTo %}{{ entity.timeTo|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ entity.bgImageUrl }}</td>
+                            <td>{{ entity.room }}</td>
+                            <td>{{ entity.speaker }}</td>
+                            <td>{{ entity.topic }}</td>
+                            <td>
+                                <a class="btn btn-warning" href="{{ path('admin_schedule_edit', { 'id': entity.id }) }}">edit</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>                
+            </div>
+        
+    {% endfor %}
+</div>
+
+
+        
+    <a href="{{ path('admin_schedule_new') }}" class="btn btn-success"> Create a new entry </a>
+        
+{% endblock %}

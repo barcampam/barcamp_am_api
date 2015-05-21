@@ -1,0 +1,51 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        # AdminBundle\Entity\User: bcrypt
+
+    role_hierarchy:
+        ROLE_EDITOR:      [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_EDITOR, ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [in_memory ]
+
+        # my_user:
+        #     entity: { class: AdminBundle:User }
+
+        in_memory:
+            memory:
+                users:
+                    admin: { password: %admin_password%, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/admin/login$
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            form_login:
+                check_path: _auth_check
+                login_path: _auth_login
+            logout:
+                path:   _auth_logout
+                target: admin_home
+            anonymous: ~
+#            http_basic:
+#                realm: "Secured Demo Area"
+
+
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+        - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: http }
+        - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: http }
+
+
