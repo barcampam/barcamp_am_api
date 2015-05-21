@@ -26,6 +26,7 @@
                             <th>Bg Image Url</th>
                             <th>Room</th>
                             <th>Speaker</th>
+                            <th>My Speaker</th>
                             <th>Topic</th>
                             <th>Actions</th>
                         </tr>
@@ -40,6 +41,7 @@
                             <td>{{ entity.bgImageUrl }}</td>
                             <td>{{ entity.room }}</td>
                             <td>{{ entity.speaker }}</td>
+                            <td>{{ entity.mySpeaker }}</td>
                             <td>{{ entity.topic }}</td>
                             <td>
                                 <a class="btn btn-warning" href="{{ path('admin_schedule_edit', { 'id': entity.id }) }}">edit</a>
