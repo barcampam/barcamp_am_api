@@ -94,7 +94,6 @@ class Speaker
      */
     private $linkedin;
 
-
     /**
      * @var string
      *
@@ -108,6 +107,11 @@ class Speaker
     {
         return '/i/speaker/';
     }    
+
+    public function __toString()
+    {
+        return $this->getNameEn();
+    }
 
     /**
      * Get id

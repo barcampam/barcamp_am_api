@@ -29,6 +29,7 @@ class ScheduleType extends AbstractType
                 'choices' => Schedule::$rooms
                 ))
             ->add('speaker')
+            ->add('mySpeaker')
             ->add('topic')
         ;
     }

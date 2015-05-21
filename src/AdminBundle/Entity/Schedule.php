@@ -59,9 +59,18 @@ class Schedule
     /**
      * @var string
      *
-     * @ORM\Column(name="speaker", type="string", length=255)
+     * @ORM\Column(name="speaker", type="string", length=255, nullable=true)
      */
     private $speaker;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Speaker")
+     * @ORM\JoinColumn(name="mySpeaker", referencedColumnName="id", nullable=true)
+     */
+    private $mySpeaker;
+
 
     /**
      * @var string
@@ -217,5 +226,28 @@ class Schedule
     public function getTopic()
     {
         return $this->topic;
+    }
+
+    /**
+     * Set mySpeaker
+     *
+     * @param \AdminBundle\Entity\Speaker $mySpeaker
+     * @return Schedule
+     */
+    public function setMySpeaker(\AdminBundle\Entity\Speaker $mySpeaker = null)
+    {
+        $this->mySpeaker = $mySpeaker;
+
+        return $this;
+    }
+
+    /**
+     * Get mySpeaker
+     *
+     * @return \AdminBundle\Entity\Speaker 
+     */
+    public function getMySpeaker()
+    {
+        return $this->mySpeaker;
     }
 }
