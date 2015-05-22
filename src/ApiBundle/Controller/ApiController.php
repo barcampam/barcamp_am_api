@@ -26,11 +26,13 @@ class ApiController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $result = $em->getRepository('AdminBundle:Schedule')->findAll();
+        $data = [];
+        foreach ($result as $slot) {
+            array_push($data, $slot->serialize());
+        }
+        
 
-        $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($result, 'json');
-
-        $response = new JsonResponse($jsonContent);
+        $response = new JsonResponse($data);
         return $response;
     }
 
@@ -42,10 +44,12 @@ class ApiController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $result = $em->getRepository('AdminBundle:Speaker')->findAll();
 
-        $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($result, 'json');
+        $data = [];
+        foreach ($result as $slot) {
+            array_push($data, $slot->serialize());
+        }
 
-        $response = new JsonResponse($jsonContent);
+        $response = new JsonResponse($data);
         return $response;
     }
 }

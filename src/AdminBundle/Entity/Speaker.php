@@ -115,6 +115,23 @@ class Speaker
         return $this->getNameEn();
     }
 
+    public function serialize()
+    {
+    
+        $result = [
+            'en' => ['name' => $this->getNameEn(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioEn()],
+            'hy' => ['name' => $this->getNameHy(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioHy()],
+            'photo' => $this->getPhoto(),
+            'socialnetworks' => [
+                'facbook' => $this->getFacebook(),
+                'twitter' => $this->getTwitter(),
+                'instagram' => $this->getInstagram(),
+                'linkedin' => $this->getLinkedin(),
+            ]
+            
+        ];  
+        return $result;
+    }
     /**
      * Get id
      *

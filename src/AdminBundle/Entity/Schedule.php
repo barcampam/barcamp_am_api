@@ -79,6 +79,29 @@ class Schedule
      */
     private $topic;
 
+    public function serialize()
+    {
+        if (is_null($this->getMySpeaker())) {
+            $speakerEn = $this->getSpeaker();
+            $speakerHy = $this->getSpeaker();
+            $topicEn = $this->getTopic();
+            $topicHy = $this->getTopic();
+        } else {
+            $speakerHy = $this->getMySpeaker()->getNameHy();
+            $speakerEn = $this->getMySpeaker()->getNameEn();
+            $topicHy = $this->getMySpeaker()->getPresentationTopicHy();            
+            $topicEn = $this->getMySpeaker()->getPresentationTopicEn();
+        }
+        
+        $result = [
+            'en' => ['speaker' => $speakerEn, 'topic' => $topicEn],
+            'hy' => ['speaker' => $speakerHy, 'topic' => $topicHy],
+            'time_from' => $this->getTimeFrom(),
+            'time_to' => $this->getTimeTo(),
+            'room' => self::$rooms[$this->getRoom()]
+        ];  
+        return $result;
+    }
 
     /**
      * Get id
