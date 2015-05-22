@@ -15,7 +15,7 @@ class ApiController extends Controller
      */
     public function indexAction()
     {
-        $response = new Response(json_encode(['msg' => 'available urls are: /json/schedule, /json/speakers']));
+        $response = new Response(json_encode(['msg' => 'available urls are: /schedule, /speakers']));
         return $response;
     }
 
