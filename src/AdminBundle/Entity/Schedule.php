@@ -86,16 +86,19 @@ class Schedule
             $speakerHy = $this->getSpeaker();
             $topicEn = $this->getTopic();
             $topicHy = $this->getTopic();
+            $bgImageUrl = '';
         } else {
             $speakerHy = $this->getMySpeaker()->getNameHy();
             $speakerEn = $this->getMySpeaker()->getNameEn();
             $topicHy = $this->getMySpeaker()->getPresentationTopicHy();            
             $topicEn = $this->getMySpeaker()->getPresentationTopicEn();
+            $bgImageUrl = $this->getMySpeaker()->getPhoto();
         }
         
         $result = [
             'en' => ['speaker' => $speakerEn, 'topic' => $topicEn],
             'hy' => ['speaker' => $speakerHy, 'topic' => $topicHy],
+            'bg_image_url' => $bgImageUrl,
             'time_from' => $this->getTimeFrom(),
             'time_to' => $this->getTimeTo(),
             'room' => self::$rooms[$this->getRoom()]
