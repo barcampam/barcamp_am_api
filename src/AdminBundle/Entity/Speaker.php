@@ -394,27 +394,5 @@ class Speaker
     {
         return $this->linkedin;
     }
-    /**
-     * @ORM\PrePersist
-     */
-    public function preUpload()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function upload()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostRemove
-     */
-    public function removeUpload()
-    {
-        // Add your code here
-    }
+    
 }

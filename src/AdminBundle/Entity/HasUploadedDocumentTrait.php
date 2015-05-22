@@ -53,8 +53,6 @@ trait HasUploadedDocumentTrait
      */
     public function preUpload()
     {
-        var_dump("asdf");
-        die();
         if (null !== $this->getFile()) {
             $field = $this->fileFieldName;
             $this->temp = $this->$field;
@@ -96,8 +94,6 @@ trait HasUploadedDocumentTrait
     {
         $field = $this->fileFieldName;
         if ($this->$field && $file = $this->getUploadRootDir() . $this->$field) {
-            var_dump($file);
-            die();
             if (file_exists($file)) {            
                 unlink($file);
             }
