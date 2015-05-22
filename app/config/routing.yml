@@ -4,5 +4,5 @@ admin:
     prefix:   /admin/
 
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@ApiBundle/Controller/"
     type:     annotation

@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            new AppBundle\AppBundle(),
+            new ApiBundle\ApiBundle(),
             new AdminBundle\AdminBundle(),
         );
 

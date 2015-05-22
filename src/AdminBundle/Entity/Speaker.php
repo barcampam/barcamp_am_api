@@ -3,14 +3,16 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+
 
 /**
  * Speaker
  *
  * @ORM\Table("speaker")
  * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks 
- */
+ * @ORM\HasLifecycleCallbacks
+*/
 class Speaker
 {
     use HasUploadedDocumentTrait;
