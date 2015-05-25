@@ -26,7 +26,7 @@ class SpeakerType extends AbstractType
             ->add('instagram')
             ->add('linkedin')
             ->add('photo')
-            ->add('file', 'file')
+            ->add('file', 'file', array('required' => false))
         ;
     }
     
