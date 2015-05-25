@@ -98,7 +98,7 @@ class Schedule
         $result = [
             'en' => ['speaker' => $speakerEn, 'topic' => $topicEn],
             'hy' => ['speaker' => $speakerHy, 'topic' => $topicHy],
-            'bg_image_url' => $bgImageUrl,
+            'bg_image_url' => "http://api.barcamp.am".$bgImageUrl,
             'time_from' => $this->getTimeFrom(),
             'time_to' => $this->getTimeTo(),
             'room' => self::$rooms[$this->getRoom()]

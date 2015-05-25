@@ -121,7 +121,7 @@ class Speaker
         $result = [
             'en' => ['name' => $this->getNameEn(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioEn()],
             'hy' => ['name' => $this->getNameHy(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioHy()],
-            'photo' => $this->getPhoto(),
+            'photo' => "http://api.barcamp.am". $this->getPhoto(),
             'socialnetworks' => [
                 'facbook' => $this->getFacebook(),
                 'twitter' => $this->getTwitter(),
