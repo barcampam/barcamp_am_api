@@ -96,6 +96,7 @@ class Schedule
         }
         
         $result = [
+            'id' => $this->getId(),
             'en' => ['speaker' => $speakerEn, 'topic' => $topicEn],
             'hy' => ['speaker' => $speakerHy, 'topic' => $topicHy],
             'bg_image_url' => "http://api.barcamp.am".$bgImageUrl,
