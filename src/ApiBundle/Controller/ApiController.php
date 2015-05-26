@@ -44,6 +44,8 @@ class ApiController extends Controller
     {
         if (is_null($date)) {
             $date = new \DateTime('now');
+        } else {
+            $date = new \DateTime($date);
         }
         $em = $this->getDoctrine()->getEntityManager();
         $result = $em->getRepository('AdminBundle:Schedule')->findActual($date);
