@@ -17,8 +17,8 @@ class ScheduleRepository extends EntityRepository
         $qb = $em->createQueryBuilder();
         $query = $qb->select('s')
             ->from('AdminBundle\Entity\Schedule', 's')
-            ->where('s.timeFrom > :date_from')
-            ->where('s.timeTo < :date_from')
+            // ->where('s.timeFrom > :date_from')
+            ->where('s.timeTo > :date_from')
             ->setParameter('date_from', $date, \Doctrine\DBAL\Types\Type::DATETIME)
             ->setMaxResults(3)
             ->getQuery();
