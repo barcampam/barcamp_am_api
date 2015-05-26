@@ -85,6 +85,13 @@ class Speaker
     /**
      * @var string
      *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
      */
     private $instagram;
@@ -349,6 +356,30 @@ class Speaker
     {
         return $this->twitter;
     }
+
+    /**
+     * Set Website
+     *
+     * @param string $Website
+     * @return Speaker
+     */
+    public function setWebsite($Website)
+    {
+        $this->website = $Website;
+
+        return $this;
+    }
+
+    /**
+     * Get Website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
 
     /**
      * Set instagram
