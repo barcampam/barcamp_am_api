@@ -7,26 +7,26 @@
     <table class="records_list table table-condensed table-striped table-hover">
         <thead>
             <tr>
+                <th>Actions</th>                
                 <th>Id</th>
-                <th>Namehy</th>
-                <th>Nameen</th>
-                <th>Biohy</th>
-                <th>Bioen</th>
-                <th>Presentationtopichy</th>
-                <th>Presentationtopicen</th>
+                <th>Name Hy</th>
+                <th>Name En</th>
+                <th>Presentation Topic Hy</th>
+                <th>Presentation Topic En</th>
                 <th>Social</th>
                 <th>Photo</th>
-                <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('admin_speaker_edit', { 'id': entity.id }) }}">edit</a>
+                </td>                 
                 <td><a href="{{ path('admin_speaker_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.nameHy }}</td>
                 <td>{{ entity.nameEn }}</td>
-                <td>{{ entity.bioHy }}</td>
-                <td>{{ entity.bioEn }}</td>
                 <td>{{ entity.presentationTopicHy }}</td>
                 <td>{{ entity.presentationTopicEn }}</td>
                 <td>
@@ -43,10 +43,7 @@
                         <img src="{{ entity.photo }}" />
                     {% endif %}
                 </td>
-                <td>
-                    <a class="btn btn-warning" href="{{ path('admin_speaker_edit', { 'id': entity.id }) }}">edit</a>
-                </td>
-            </tr>
+           </tr>
         {% endfor %}
         </tbody>
     </table>
