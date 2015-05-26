@@ -37,6 +37,27 @@ class ApiController extends Controller
     }
 
     /**
+     * @Route("/schedule/actual", name="schedule_actual")
+     * @Route("/schedule/actual/{date}", name="schedule_actual_now")
+     */
+    public function scheduleActualAction($date = null)
+    {
+        if (is_null($date)) {
+            $date = new \DateTime('now');
+        }
+        $em = $this->getDoctrine()->getEntityManager();
+        $result = $em->getRepository('AdminBundle:Schedule')->findActual($date);
+        $data = [];
+        foreach ($result as $slot) {
+            array_push($data, $slot->serialize());
+        }
+        
+
+        $response = new JsonResponse($data);
+        return $response;
+    }
+
+    /**
      * @Route("/speakers", name="speakers")
      */
     public function speakersAction()
