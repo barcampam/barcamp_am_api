@@ -161,7 +161,7 @@ class ScheduleController extends Controller
     */
     private function createEditForm(Schedule $entity)
     {
-        $form = $this->createForm(new ScheduleType(), $entity, array(
+        $form = $this->createForm(new ScheduleType($this->container), $entity, array(
             'action' => $this->generateUrl('admin_schedule_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
