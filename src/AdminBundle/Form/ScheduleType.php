@@ -25,13 +25,13 @@ class ScheduleType extends AbstractType
         $builder
             ->add('timeFrom', 'datetime', array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd hh:mm:ss',
+                'format' => 'yyyy-MM-dd HH:mm:ss',
                 'model_timezone' => $this->container->getParameter('model_timezone'),
                 'view_timezone' => $this->container->getParameter('view_timezone'),
                 'attr'   => array('class' => 'datepicker')))
             ->add('timeTo', 'datetime', array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd hh:mm:ss',
+                'format' => 'yyyy-MM-dd HH:mm:ss',
                 'model_timezone' => $this->container->getParameter('model_timezone'),
                 'view_timezone' => $this->container->getParameter('view_timezone'),
                 'attr'   => array('class' => 'datepicker')))
