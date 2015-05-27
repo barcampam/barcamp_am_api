@@ -9,6 +9,13 @@ use AdminBundle\Entity\Schedule;
 
 class ScheduleType extends AbstractType
 {
+    private $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
