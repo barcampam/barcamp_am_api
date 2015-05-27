@@ -21,11 +21,18 @@ class ApiController extends Controller
 
     /**
      * @Route("/schedule", name="schedule")
+     * @Route("/schedule/{day}", name="schedule_day")
      */
-    public function scheduleAction()
+    public function scheduleAction($day = null)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $result = $em->getRepository('AdminBundle:Schedule')->findAll();
+        if ($day) {
+            $result = $em->getRepository('AdminBundle:Schedule')->findByDay($day);
+        } else {
+            $result = $em->getRepository('AdminBundle:Schedule')->findAll();
+        }
+        
+        
         $data = [];
         foreach ($result as $slot) {
             array_push($data, $slot->serialize());

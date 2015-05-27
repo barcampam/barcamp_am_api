@@ -14,10 +14,10 @@ class Schedule
 {
     public static $rooms = array(
         '0' => 'Big Hall',
-        '1' => "E200",
-        '2' => "W200",
-        '3' => "E201",
-        '4' => "W202",
+        '1' => "W1",
+        '2' => "W2",
+        '3' => "P1",
+        '4' => "P2",
     );
     /**
      * @var integer
