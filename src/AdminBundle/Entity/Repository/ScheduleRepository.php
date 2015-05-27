@@ -44,7 +44,6 @@ class ScheduleRepository extends EntityRepository
             ->where('s.timeTo >= :date_start and s.timeFrom < :date_end')
             ->setParameter('date_start', $dateStart, \Doctrine\DBAL\Types\Type::DATETIME)
             ->setParameter('date_end', $dateEnd, \Doctrine\DBAL\Types\Type::DATETIME)
-            ->setMaxResults(3)
             ->getQuery();
         
         $result = $query->getResult();
