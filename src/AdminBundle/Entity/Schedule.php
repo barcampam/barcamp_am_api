@@ -90,8 +90,8 @@ class Schedule
         } else {
             $speakerHy = $this->getMySpeaker()->getNameHy();
             $speakerEn = $this->getMySpeaker()->getNameEn();
-            $topicHy = $this->getMySpeaker()->getPresentationTopicHy();            
-            $topicEn = $this->getMySpeaker()->getPresentationTopicEn();
+            $topicEn = $this->getTopic();
+            $topicHy = $this->getTopic();
             $bgImageUrl = $this->getMySpeaker()->getPhoto();
         }
         
