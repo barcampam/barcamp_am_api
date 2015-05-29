@@ -119,7 +119,7 @@ class Speaker
 
     public function __toString()
     {
-        return $this->getNameEn();
+        return (string)$this->getNameEn();
     }
 
     public function serialize()
