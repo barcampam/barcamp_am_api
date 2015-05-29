@@ -18,6 +18,30 @@ class ApiController extends Controller
         $response = new Response(json_encode(['msg' => 'available urls are: /schedule, /speakers']));
         return $response;
     }
+    
+   /**
+     * @Route("/schedule/actual", name="schedule_actual")
+     * @Route("/schedule/actual/{date}", name="schedule_actual_now")
+     */
+    public function scheduleActualAction($date = null)
+    {
+        if (is_null($date)) {
+            $date = new \DateTime('now');
+        } else {
+            $date = new \DateTime($date);
+        }
+        $em = $this->getDoctrine()->getEntityManager();
+        $result = $em->getRepository('AdminBundle:Schedule')->findActual($date);
+        $data = [];
+        foreach ($result as $slot) {
+            array_push($data, $slot->serialize());
+        }
+        
+
+        $response = new JsonResponse($data);
+        return $response;
+    }
+ 
 
     /**
      * @Route("/schedule", name="schedule")
@@ -43,28 +67,6 @@ class ApiController extends Controller
         return $response;
     }
 
-    /**
-     * @Route("/schedule/actual", name="schedule_actual")
-     * @Route("/schedule/actual/{date}", name="schedule_actual_now")
-     */
-    public function scheduleActualAction($date = null)
-    {
-        if (is_null($date)) {
-            $date = new \DateTime('now');
-        } else {
-            $date = new \DateTime($date);
-        }
-        $em = $this->getDoctrine()->getEntityManager();
-        $result = $em->getRepository('AdminBundle:Schedule')->findActual($date);
-        $data = [];
-        foreach ($result as $slot) {
-            array_push($data, $slot->serialize());
-        }
-        
-
-        $response = new JsonResponse($data);
-        return $response;
-    }
 
     /**
      * @Route("/speakers", name="speakers")
