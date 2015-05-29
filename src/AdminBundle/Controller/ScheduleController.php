@@ -29,7 +29,7 @@ class ScheduleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AdminBundle:Schedule')->findAll();
+        $entities = $em->getRepository('AdminBundle:Schedule')->findBy(array(), array('timeFrom' => 'asc'));
 
         return array(
             'entities' => $entities,
