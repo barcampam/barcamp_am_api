@@ -42,6 +42,7 @@ class ScheduleRepository extends EntityRepository
         $query = $qb->select('s')
             ->from('AdminBundle\Entity\Schedule', 's')
             ->where('s.timeTo >= :date_start and s.timeFrom < :date_end')
+            ->orderBy('s.timeTo', 'ASC');
             ->setParameter('date_start', $dateStart, \Doctrine\DBAL\Types\Type::DATETIME)
             ->setParameter('date_end', $dateEnd, \Doctrine\DBAL\Types\Type::DATETIME)
             ->getQuery();
