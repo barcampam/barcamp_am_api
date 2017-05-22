@@ -14,28 +14,36 @@ class ScheduleRepository extends EntityRepository
     public function findActual($date)
     {
         $em = $this->getEntityManager();
-        $qb = $em->createQueryBuilder();
-        $query = $qb->select('s')
-            ->from('AdminBundle\Entity\Schedule', 's')
-            // ->where('s.timeFrom > :date_from')
-            ->where('s.timeTo > :date_from')
-            ->setParameter('date_from', $date, \Doctrine\DBAL\Types\Type::DATETIME)
-            ->setMaxResults(3)
-            ->getQuery();
-        
-        $result = $query->getResult();
 
-        return $result;
+	$resultt = [];
+
+	for ($i = 0; $i <= 4; $i++) {
+
+		$qb = $em->createQueryBuilder();
+		$query = $qb->select('s')
+		    ->from('AdminBundle\Entity\Schedule', 's')
+		    ->where('s.timeTo > :date_from and s.room = :room')
+		    ->setParameter('date_from', $date, \Doctrine\DBAL\Types\Type::DATETIME)
+		    ->setParameter('room', $i)
+		    ->setMaxResults(3)
+		    ->getQuery();
+
+		$result = $query->getResult();
+
+		$resultt = array_merge($resultt, $result);
+	}
+
+        return $resultt;
     }
 
     public function findByDay($day) 
     {
         if ($day == 1) {
-            $dateStart = new \DateTime("2015-05-30");
-            $dateEnd = new \DateTime("2015-05-31");
+            $dateStart = new \DateTime("2017-05-27");
+            $dateEnd = new \DateTime("2017-05-28");
         } else {
-            $dateStart = new \DateTime("2015-05-31");
-            $dateEnd = new \DateTime("2015-06-01");
+            $dateStart = new \DateTime("2017-05-28");
+            $dateEnd = new \DateTime("2017-05-29");
         }
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();

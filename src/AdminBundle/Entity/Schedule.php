@@ -9,15 +9,17 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table("schedule")
  * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\ScheduleRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Schedule
 {
     public static $rooms = array(
         '0' => 'Big Hall',
-        '1' => "208E",
-        '2' => "213W",
-        '3' => "113W",
-        '4' => "114W",
+        '1' => "113W",
+        '2' => "114W",
+        '3' => "213W",
+        '4' => "214W",
+        '5' => "208E",
     );
     /**
      * @var integer
@@ -71,6 +73,14 @@ class Schedule
      */
     private $mySpeaker;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     */
+    private $photo;
+
+    protected $fileFieldName = "photo";
 
     /**
      * @var string
@@ -79,7 +89,7 @@ class Schedule
      */
     private $topic;
 
-    public function serialize()
+    public function serialize($lang = null)
     {
         if (is_null($this->getMySpeaker())) {
             $speakerEn = $this->getSpeaker();
@@ -94,23 +104,48 @@ class Schedule
             $topicHy = $this->getTopic();
             $bgImageUrl = $this->getMySpeaker()->getPhoto();
         }
-        
-        $result = [
-            'id' => $this->getId(),
-            'en' => ['speaker' => $speakerEn, 'topic' => $topicEn],
-            'hy' => ['speaker' => $speakerHy, 'topic' => $topicHy],
-            'bg_image_url' => "http://api.barcamp.am".$bgImageUrl,
-            'time_from' => $this->getTimeFrom(),
-            'time_to' => $this->getTimeTo(),
-            'room' => self::$rooms[$this->getRoom()]
-        ];  
+
+        if (is_null($lang)) {
+            $result = [
+                'id'           => $this->getId(),
+                'en'           => ['speaker' => $speakerEn, 'topic' => $topicEn],
+                'hy'           => ['speaker' => $speakerHy, 'topic' => $topicHy],
+                'bg_image_url' => "http://api.barcamp.am" . $bgImageUrl,
+                'time_from'    => $this->getTimeFrom(),
+                'time_to'      => $this->getTimeTo(),
+                'room'         => self::$rooms[$this->getRoom()]
+            ];
+        } else {
+            if ($lang == 'hy') {
+                $result = [
+                    'id'           => $this->getId(),
+                    'hy'           => ['speaker' => $speakerHy, 'topic' => $topicHy],
+                    'bg_image_url' => "http://api.barcamp.am" . $bgImageUrl,
+                    'time_from'    => $this->getTimeFrom(),
+                    'time_to'      => $this->getTimeTo(),
+                    'room'         => self::$rooms[$this->getRoom()]
+                ];
+            } else {
+                if ($lang == 'en') {
+                    $result = [
+                        'id'           => $this->getId(),
+                        'en'           => ['speaker' => $speakerEn, 'topic' => $topicEn],
+                        'bg_image_url' => "http://api.barcamp.am" . $bgImageUrl,
+                        'time_from'    => $this->getTimeFrom(),
+                        'time_to'      => $this->getTimeTo(),
+                        'room'         => self::$rooms[$this->getRoom()]
+                    ];
+                }
+            }
+        }
+
         return $result;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -133,7 +168,7 @@ class Schedule
     /**
      * Get timeFrom
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTimeFrom()
     {
@@ -156,7 +191,7 @@ class Schedule
     /**
      * Get timeTo
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTimeTo()
     {
@@ -179,7 +214,7 @@ class Schedule
     /**
      * Get bgImageUrl
      *
-     * @return string 
+     * @return string
      */
     public function getBgImageUrl()
     {
@@ -202,7 +237,7 @@ class Schedule
     /**
      * Get room
      *
-     * @return string 
+     * @return string
      */
     public function getRoom()
     {
@@ -225,7 +260,7 @@ class Schedule
     /**
      * Get speaker
      *
-     * @return string 
+     * @return string
      */
     public function getSpeaker()
     {
@@ -248,7 +283,7 @@ class Schedule
     /**
      * Get topic
      *
-     * @return string 
+     * @return string
      */
     public function getTopic()
     {
@@ -271,7 +306,7 @@ class Schedule
     /**
      * Get mySpeaker
      *
-     * @return \AdminBundle\Entity\Speaker 
+     * @return \AdminBundle\Entity\Speaker
      */
     public function getMySpeaker()
     {

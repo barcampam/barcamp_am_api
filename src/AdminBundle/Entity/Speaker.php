@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table("speaker")
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
-*/
+ */
 class Speaker
 {
     use HasUploadedDocumentTrait;
@@ -110,40 +110,99 @@ class Speaker
      */
     private $photo;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="isSpecial", type="boolean", nullable=true)
+     */
+    private $isSpecial;
+
     protected $fileFieldName = "photo";
 
     protected function getUploadDir()
     {
         return '/i/speaker/';
-    }    
+    }
 
     public function __toString()
     {
         return (string)$this->getNameEn();
     }
 
-    public function serialize()
+    public function serialize($lang = null)
     {
-    
-        $result = [
-            'id' => $this->getId(),
-            'en' => ['name' => $this->getNameEn(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioEn()],
-            'hy' => ['name' => $this->getNameHy(), 'topic' => $this->getPresentationTopicHy(), 'bio' => $this->getBioHy()],
-            'photo' => "http://api.barcamp.am". $this->getPhoto(),
-            'socialnetworks' => [
-                'facbook' => $this->getFacebook(),
-                'twitter' => $this->getTwitter(),
-                'instagram' => $this->getInstagram(),
-                'linkedin' => $this->getLinkedin(),
-            ]
-            
-        ];  
+        if (substr($this->getPhoto(), 0, 4) == 'http') {
+            $photo = $this->getPhoto();
+        } else {
+            $photo = "http://api.barcamp.am" . $this->getPhoto();
+        }
+
+        if (is_null($lang)) {
+            $result = [
+                'id'             => $this->getId(),
+                'en'             => [
+                    'name'  => $this->getNameEn(),
+                    'topic' => $this->getPresentationTopicHy(),
+                    'bio'   => $this->getBioEn()
+                ],
+                'hy'             => [
+                    'name'  => $this->getNameHy(),
+                    'topic' => $this->getPresentationTopicHy(),
+                    'bio'   => $this->getBioHy()
+                ],
+                'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                'socialnetworks' => [
+                    'facbook'   => $this->getFacebook(),
+                    'twitter'   => $this->getTwitter(),
+                    'instagram' => $this->getInstagram(),
+                    'linkedin'  => $this->getLinkedin(),
+                ]
+            ];
+        } else {
+            if ($lang == 'hy') {
+                $result = [
+                    'id'             => $this->getId(),
+                    'hy'             => [
+                        'name'  => $this->getNameHy(),
+                        'topic' => $this->getPresentationTopicHy(),
+                        'bio'   => $this->getBioHy()
+                    ],
+                    'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                    'socialnetworks' => [
+                        'facbook'   => $this->getFacebook(),
+                        'twitter'   => $this->getTwitter(),
+                        'instagram' => $this->getInstagram(),
+                        'linkedin'  => $this->getLinkedin(),
+                    ]
+                ];
+            } else {
+                if ($lang == 'en') {
+                    $result = [
+                        'id'             => $this->getId(),
+                        'en'             => [
+                            'name'  => $this->getNameEn(),
+                            'topic' => $this->getPresentationTopicHy(),
+                            'bio'   => $this->getBioEn()
+                        ],
+                        'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                        'socialnetworks' => [
+                            'facbook'   => $this->getFacebook(),
+                            'twitter'   => $this->getTwitter(),
+                            'instagram' => $this->getInstagram(),
+                            'linkedin'  => $this->getLinkedin(),
+                        ]
+                    ];
+                }
+            }
+        }
+
         return $result;
     }
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -166,7 +225,7 @@ class Speaker
     /**
      * Get nameHy
      *
-     * @return string 
+     * @return string
      */
     public function getNameHy()
     {
@@ -189,7 +248,7 @@ class Speaker
     /**
      * Get nameEn
      *
-     * @return string 
+     * @return string
      */
     public function getNameEn()
     {
@@ -212,7 +271,7 @@ class Speaker
     /**
      * Get bioHy
      *
-     * @return string 
+     * @return string
      */
     public function getBioHy()
     {
@@ -235,7 +294,7 @@ class Speaker
     /**
      * Get bioEn
      *
-     * @return string 
+     * @return string
      */
     public function getBioEn()
     {
@@ -258,7 +317,7 @@ class Speaker
     /**
      * Get presentationTopicHy
      *
-     * @return string 
+     * @return string
      */
     public function getPresentationTopicHy()
     {
@@ -281,7 +340,7 @@ class Speaker
     /**
      * Get presentationTopicEn
      *
-     * @return string 
+     * @return string
      */
     public function getPresentationTopicEn()
     {
@@ -304,7 +363,7 @@ class Speaker
     /**
      * Get photo
      *
-     * @return string 
+     * @return string
      */
     public function getPhoto()
     {
@@ -327,7 +386,7 @@ class Speaker
     /**
      * Get facebook
      *
-     * @return string 
+     * @return string
      */
     public function getFacebook()
     {
@@ -350,7 +409,7 @@ class Speaker
     /**
      * Get twitter
      *
-     * @return string 
+     * @return string
      */
     public function getTwitter()
     {
@@ -373,7 +432,7 @@ class Speaker
     /**
      * Get Website
      *
-     * @return string 
+     * @return string
      */
     public function getWebsite()
     {
@@ -397,7 +456,7 @@ class Speaker
     /**
      * Get instagram
      *
-     * @return string 
+     * @return string
      */
     public function getInstagram()
     {
@@ -420,11 +479,26 @@ class Speaker
     /**
      * Get linkedin
      *
-     * @return string 
+     * @return string
      */
     public function getLinkedin()
     {
         return $this->linkedin;
     }
-    
+
+    /**
+     * @return string
+     */
+    public function getIsSpecial()
+    {
+        return $this->isSpecial;
+    }
+
+    /**
+     * @param string $isSpecial
+     */
+    public function setIsSpecial($isSpecial)
+    {
+        $this->isSpecial = $isSpecial;
+    }
 }

@@ -17,6 +17,7 @@ class SpeakerType extends AbstractType
         $builder
             ->add('nameHy')
             ->add('nameEn')
+            ->add('isSpecial')
             ->add('bioHy')
             ->add('bioEn')
             ->add('presentationTopicHy')
