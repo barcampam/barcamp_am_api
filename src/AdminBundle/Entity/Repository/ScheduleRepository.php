@@ -25,6 +25,7 @@ class ScheduleRepository extends EntityRepository
 		    ->where('s.timeTo > :date_from and s.room = :room')
 		    ->setParameter('date_from', $date, \Doctrine\DBAL\Types\Type::DATETIME)
 		    ->setParameter('room', $i)
+            ->orderBy('s.timeTo', 'ASC')
 		    ->setMaxResults(3)
 		    ->getQuery();
 

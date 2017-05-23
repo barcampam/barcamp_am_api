@@ -17,5 +17,7 @@ parameters:
 
     locale:            en
 
+    secret: ~
+
     model_timezone: "America/Chicago"
     view_timezone: "Asia/Yerevan"
