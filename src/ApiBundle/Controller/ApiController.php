@@ -58,7 +58,6 @@ class ApiController extends Controller
             $result = $em->getRepository('AdminBundle:Schedule')->findByDay($day);
         } else {
             $result = $em->getRepository('AdminBundle:Schedule')->findBy([], ['timeTo' => 'ASC']);
-            $result = $em->getRepository('AdminBundle:Schedule')->findBy([], ['timeTo' => 'ASC']);
         }
 
 
