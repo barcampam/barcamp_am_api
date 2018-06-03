@@ -1,0 +1,38 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Gallery list</h1>
+    <a href="{{ path('admin_gallery_new') }}" class="btn btn-success"> Create a new entry </a>
+
+    <table class="records_list table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Actions</th>                
+                <th>Id</th>
+                <th>Name Hy</th>
+                <th>Name En</th>
+                <th>Photo</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('admin_gallery_edit', { 'id': entity.id }) }}">edit</a>
+                </td>                 
+                <td><a href="{{ path('admin_gallery_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.nameHy }}</td>
+                <td>{{ entity.nameEn }}</td>
+                <td>{% if entity.photo is not empty %}
+                        <img src="{{ entity.photo }}" />
+                    {% endif %}
+                </td>
+           </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_gallery_new') }}" class="btn btn-success"> Create a new entry </a>
+
+{% endblock %}

@@ -40,6 +40,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right gray_bg">
+                        <li><a href="{{ path('admin_gallery') }}">Gallery</a></li>
                         <li><a href="{{ path('admin_speaker') }}">Speakers</a></li>
                         <li><a href="{{ path('admin_schedule') }}">Schedules</a></li>
                         {% if app.user.username is defined %}

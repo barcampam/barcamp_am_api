@@ -1,0 +1,68 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Speaker</h1>
+
+    <table class="records_list table table-condensed table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Namehy</th>
+                <td>{{ entity.nameHy }}</td>
+            </tr>
+            <tr>
+                <th>Nameen</th>
+                <td>{{ entity.nameEn }}</td>
+            </tr>
+            <tr>
+                <th>Biohy</th>
+                <td>{{ entity.bioHy }}</td>
+            </tr>
+            <tr>
+                <th>Bioen</th>
+                <td>{{ entity.bioEn }}</td>
+            </tr>
+            <tr>
+                <th>Presentationtopichy</th>
+                <td>{{ entity.presentationTopicHy }}</td>
+            </tr>
+            <tr>
+                <th>Presentationtopicen</th>
+                <td>{{ entity.presentationTopicEn }}</td>
+            </tr>
+            <tr>
+                <th>Social</th>
+                <td>
+                    {% if entity.facebook is not empty %}<a href="{{ entity.facebook }}">{% endif %}
+                        <i class="fa fa-facebook"></i> </a>
+                    {% if entity.twitter is not empty %}<a href="{{ entity.twitter }}">{% endif %}
+                        <i class="fa fa-twitter"></i> </a>
+                    {% if entity.instagram is not empty %}<a href="{{ entity.instagram }}">{% endif %}
+                        <i class="fa fa-instagram"></i> </a>
+                    {% if entity.linkedin is not empty %}<a href="{{ entity.linkedin }}">{% endif %}
+                        <i class="fa fa-linkedin"></i> </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>
+                    {% if entity.photo is not empty %}
+                        <img src="{{ entity.photo }}" />
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+    <ul class="record_actions list-group col-sm-6">
+        <li class="list-group-item"><a class="btn btn-warning" href="{{ path('admin_speaker_edit', { 'id': entity.id }) }}"> Edit </a></li>    
+        <li class="list-group-item"><a href="{{ path('admin_speaker') }}" class="btn btn-default">Back to the list</a></li>
+
+        <li class="list-group-item">{{ form(delete_form) }}</li>
+    </ul>
+
+{% endblock %}
