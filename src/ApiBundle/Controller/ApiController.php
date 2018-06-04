@@ -127,4 +127,22 @@ class ApiController extends Controller
         $response = new JsonResponse(json_encode($data));
         return $response;
     }
+
+    /**
+     * @Route("/gallery", name="gallery")
+     * @Route("/{lang}/gallery", name="gallery_lang")
+     */
+    public function galleryAction($lang = null)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $result = $em->getRepository('AdminBundle:Gallery')->findAll();
+
+        $data = [];
+        foreach ($result as $slot) {
+            array_push($data, $slot->serialize($lang));
+        }
+
+        $response = new JsonResponse($data);
+        return $response;
+    }
 }

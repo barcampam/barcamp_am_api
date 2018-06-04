@@ -17,8 +17,8 @@ class GalleryType extends AbstractType
         $builder
             ->add('nameHy')
             ->add('nameEn')
-            ->add('photo')
-            ->add('file', 'file', array('required' => false))
+            ->add('photo', 'text', array('required' => true))
+            ->add('file', 'file', array('required' => true))
         ;
     }
     
