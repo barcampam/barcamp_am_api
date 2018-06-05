@@ -151,6 +151,7 @@ class Speaker
                     'bio'   => $this->getBioHy()
                 ],
                 'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                'is_special' => $this->getIsSpecial(),
                 'socialnetworks' => [
                     'facbook'   => $this->getFacebook(),
                     'twitter'   => $this->getTwitter(),
@@ -168,6 +169,7 @@ class Speaker
                         'bio'   => $this->getBioHy()
                     ],
                     'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                    'is_special' => $this->getIsSpecial(),
                     'socialnetworks' => [
                         'facbook'   => $this->getFacebook(),
                         'twitter'   => $this->getTwitter(),
@@ -185,6 +187,7 @@ class Speaker
                             'bio'   => $this->getBioEn()
                         ],
                         'photo'          => $photo, // "http://api.barcamp.am". $this->getPhoto(),
+                        'is_special' => $this->getIsSpecial(),
                         'socialnetworks' => [
                             'facbook'   => $this->getFacebook(),
                             'twitter'   => $this->getTwitter(),
